@@ -89,7 +89,7 @@ const Navbar = () => {
                 <span>
                   {globalStateData.displayName
                     ? globalStateData.displayName[0]
-                    : "Add Name"}
+                    : `?`}
                 </span>
               </h2>
             )}
