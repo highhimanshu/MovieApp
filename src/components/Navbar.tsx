@@ -86,7 +86,11 @@ const Navbar = () => {
                 className="border rounded-full bg-black size-16 font-bold text-4xl flex justify-center items-center"
                 onClick={() => dispatch(toggleDropdown())}
               >
-                <span>{globalStateData.displayName[0]}</span>
+                <span>
+                  {globalStateData.displayName
+                    ? globalStateData.displayName[0]
+                    : "Add Name"}
+                </span>
               </h2>
             )}
 
