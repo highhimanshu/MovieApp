@@ -11,7 +11,6 @@ import { getFirestore } from "firebase/firestore";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
-  // apiKey: import.meta.env.VITE_OPENAPI_KEY,
   authDomain: "netflixgpt-a52ba.firebaseapp.com",
   projectId: "netflixgpt-a52ba",
   storageBucket: "netflixgpt-a52ba.appspot.com",
