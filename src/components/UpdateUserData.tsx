@@ -6,7 +6,6 @@ import { addUser } from "../features/userSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Spinner from "./skeleton/Spinner";
-import { FaRegWindowClose } from "react-icons/fa";
 
 const UpdateUserData = () => {
   const photoRef = useRef<any>();
@@ -60,9 +59,6 @@ const UpdateUserData = () => {
       console.log(error);
     }
   };
-
-  // console.log(auth.currentUser);
-  console.log(userLoginData);
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white  bg-opacity-20 text-white  rounded-lg shadow-md">
