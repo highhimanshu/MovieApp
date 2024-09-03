@@ -10,8 +10,6 @@ const SecondaryContainer = () => {
     nowPlayingMovies,
   } = useSelector((store: any) => store?.movies);
 
-  console.log("isloadi..", import.meta.env.VITE_API_KEY);
-
   return (
     <div className="bg-black py-6">
       <div className="md:-mt-82 lg:-mt-80 sm:mt-0 relative">
