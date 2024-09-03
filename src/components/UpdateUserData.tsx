@@ -6,6 +6,7 @@ import { addUser } from "../features/userSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Spinner from "./skeleton/Spinner";
+import { FaRegWindowClose } from "react-icons/fa";
 
 const UpdateUserData = () => {
   const photoRef = useRef<any>();
@@ -104,6 +105,14 @@ const UpdateUserData = () => {
           <label htmlFor="profile-pic" className="block text-sm font-medium">
             Profile Picture
           </label>
+          {userLoginData.photoURL && (
+            <div>
+              <img
+                src={userLoginData.photoURL}
+                className="rounded-md  w-32 h-24 "
+              />
+            </div>
+          )}
           <input
             id="profile-pic"
             type="file"

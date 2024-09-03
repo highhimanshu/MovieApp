@@ -5,7 +5,6 @@ import { addUser } from "../features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { LOGO } from "../utils/constants";
-import AVATAR from "../assets/login_pic.png";
 import Dropdown from "./Dropdown";
 import SearchDropdown from "./SearchDropdown";
 import useDebounce from "../hooks/useDebounce";
@@ -74,13 +73,22 @@ const Navbar = () => {
             </button>
           </Link>
 
-          <div className="relative">
-            <img
-              src={globalStateData.photoURL ? globalStateData.photoURL : AVATAR}
-              alt="hello"
-              onClick={() => dispatch(toggleDropdown())}
-              className="rounded-full border-2  border-white w-14 h-14 "
-            />
+          <div className="relative cursor-pointer">
+            {globalStateData.photoURL ? (
+              <img
+                src={globalStateData.photoURL}
+                alt="hello"
+                onClick={() => dispatch(toggleDropdown())}
+                className="rounded-full border-2 border-white size-16 "
+              />
+            ) : (
+              <h2
+                className="border rounded-full bg-black size-16 font-bold text-4xl flex justify-center items-center"
+                onClick={() => dispatch(toggleDropdown())}
+              >
+                <span>{globalStateData.displayName[0]}</span>
+              </h2>
+            )}
 
             {isDropdownOpen && <Dropdown name={globalStateData?.displayName} />}
           </div>
