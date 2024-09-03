@@ -115,7 +115,7 @@ const LoginSignup = () => {
               id="name"
               ref={nameInput}
               placeholder="Email full name"
-              className="text-black  border-2 rounded p-2"
+              className="border-2 rounded p-2"
             />
             {/* {emailError && (
             <span className="text-red-500 font-bold">{emailError}</span>
@@ -132,7 +132,7 @@ const LoginSignup = () => {
             id="email"
             ref={emailInput}
             placeholder="Email or mobile number"
-            className="text-black  border-2 rounded p-2"
+            className="border-2 rounded p-2"
           />
           {authError?.email && (
             <span className="text-red-500 font-bold">{authError?.email}</span>
@@ -147,7 +147,7 @@ const LoginSignup = () => {
             id="password"
             ref={passwordInput}
             placeholder="Enter Password"
-            className="text-black  border-2 rounded p-2 "
+            className=" border-2 rounded p-2 "
           />
           {authError?.password && (
             <span className="text-red-500 font-bold">

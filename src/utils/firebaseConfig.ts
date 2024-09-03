@@ -16,7 +16,7 @@ const firebaseConfig = {
   storageBucket: "netflixgpt-a52ba.appspot.com",
   messagingSenderId: import.meta.env.VITE_FIREBASE_SENDERID,
   appId: import.meta.env.VITE_FIREBASE_APPID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENTID,
+  measurementId: "G-K6XFEXX8WX",
 };
 
 // Initialize Firebase
