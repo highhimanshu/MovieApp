@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: black;
+  color: white;
+}
+
+input {
+  background-color: black;
+}
+
+button {
+  border: 2px solid white;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: red;
+  }
+}
