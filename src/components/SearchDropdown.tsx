@@ -1,15 +1,36 @@
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { closeDropdown } from "../features/dropdownSlice";
 import useSearchMovie from "../hooks/useSearchMovie";
 import ListSkeleton from "./skeleton/ListSkeleton";
 
-const SearchDropdown = ({ search }: any) => {
+const SearchDropdown = ({ search }: { search: string }) => {
   const { aimovieList, isLoading } = useSearchMovie(search);
-  console.log("search list", aimovieList);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
 
-  // const handleSearchDropdown = () => {};
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        dispatch(closeDropdown());
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dispatch]);
 
   return (
-    <div className="absolute rounded shadow-md p-2  bg-black bg-opacity-50  w-full rounded-bl rounded-br  overflow-auto">
+    <div
+      ref={dropdownRef}
+      className="absolute z-10 bg-black w-full border border-gray-800 top-14"
+    >
       {isLoading ? (
         <div className="h-[400px]">
           <ListSkeleton />

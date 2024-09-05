@@ -2,6 +2,7 @@ export interface MovieCardType {
   id: number;
   posterPath?: URL | string;
   movieTitle: string;
+  originalLanguage?: string;
 }
 
 export interface MovieListType {
@@ -9,6 +10,7 @@ export interface MovieListType {
   moviesList: MovieDetailType[];
   urlQuery: string;
   isLoading?: boolean;
+  originalLanguage?: string;
 }
 
 export interface SpokenLanguageType {

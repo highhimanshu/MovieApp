@@ -7,7 +7,12 @@ import heartoutline from "../assets/heartoutline.svg";
 import heartsolid from "../assets/heartsolid.svg";
 import { useSelector } from "react-redux";
 
-const MovieCard = ({ id, posterPath, movieTitle }: MovieCardType) => {
+const MovieCard = ({
+  id,
+  posterPath,
+  movieTitle,
+  originalLanguage,
+}: MovieCardType) => {
   const dispatch = useDispatch();
   const favMovies = useSelector((c: any) => c.movies.favoriteMovies);
   const isFavorite = favMovies.some(
@@ -31,8 +36,8 @@ const MovieCard = ({ id, posterPath, movieTitle }: MovieCardType) => {
       className="group relative cursor-pointer my-7 hover:scale-125 transition-all duration-500 hover:rounded-md hover:z-50"
     >
       <div className="flex items-end justify-between overlay absolute bottom-0 left-0 right-0 w-full h-full bg-gradient-to-t from-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:z-50">
-        <span className="text-white text-xl p-2 font-semibold">
-          {movieTitle}
+        <span className="text-primary-golden text-xl p-2 font-semibold">
+          {movieTitle} ({originalLanguage})
         </span>
         <span className="m-4  border rounded" onClick={handleToggleFavorite}>
           {isFavorite ? (

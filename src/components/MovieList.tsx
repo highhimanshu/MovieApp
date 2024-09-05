@@ -34,6 +34,7 @@ const MovieList = ({
                     id={movie.id}
                     posterPath={movie.backdrop_path}
                     movieTitle={movie.title}
+                    originalLanguage={movie.original_language}
                   />
                 </Link>
               </div>

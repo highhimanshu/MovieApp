@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../features/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { LOGO } from "../utils/constants";
+import LOGO from "../assets/movie_flex_logo.png";
 import Dropdown from "./Dropdown";
 import SearchDropdown from "./SearchDropdown";
 import useDebounce from "../hooks/useDebounce";
 import { RootState } from "../app/store";
 import { toggleDropdown } from "../features/dropdownSlice";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -49,55 +50,77 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <div className="absolute w-full py-2 px-4 bg-gradient-to-b from-black to-transparent z-10 flex flex-col md:flex-row gap-5 justify-between">
-      <Link to="/">
-        <img src={LOGO} className="w-44 mx-auto md:mx-0" />
-      </Link>
-      {globalStateData && (
-        <div className="flex gap-5 items-center text-white">
-          <Link to="/favorite">Favorite </Link>
-          <div className="relative">
-            <input
-              // ref={searchText}
-              type="search"
-              className="p-2 rounded-md bg-black border-2 border-gray-200 "
-              onChange={(e) => setSeachText(e.target.value)}
-            />
-            {searchText && <SearchDropdown search={debounceValue} />}
-          </div>
+    <div className="fixed w-full py-2 px-4 bg-gradient-to-b from-black to-transparent z-10">
+      <div className="container mx-auto flex flex-wrap items-center justify-between">
+        <Link to="/" className="flex items-center">
+          <img src={LOGO} className="w-32 md:w-48" alt="MovieFlex Logo" />
+        </Link>
 
-          <Link to="/ai">
-            <button className="bg-black text-white p-2 border-2 border-white rounded-md">
-              AI Search
-            </button>
-          </Link>
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden text-white"
+        >
+          <GiHamburgerMenu />
+        </button>
 
-          <div className="relative cursor-pointer">
-            {globalStateData.photoURL ? (
-              <img
-                src={globalStateData.photoURL}
-                alt="hello"
-                onClick={() => dispatch(toggleDropdown())}
-                className="rounded-full border-2 border-white size-16 "
+        {globalStateData && (
+          <div
+            className={`${
+              isMenuOpen ? "block" : "hidden"
+            } md:flex sm:bg-primary-golden md:bg-transparent w-full md:w-auto md:items-center mt-4 md:mt-0`}
+          >
+            <Link
+              to="/favorite"
+              className="block md:inline-block text-white mb-2 md:mb-0 md:mr-4"
+            >
+              Favorite
+            </Link>
+            <div className="relative mb-2 md:mb-0 md:mr-4">
+              <input
+                type="search"
+                className="p-2 rounded-md bg-black border-2 border-gray-200 w-full md:w-auto"
+                onChange={(e) => setSeachText(e.target.value)}
               />
-            ) : (
-              <h2
-                className="border rounded-full bg-black size-16 font-bold text-4xl flex justify-center items-center"
-                onClick={() => dispatch(toggleDropdown())}
-              >
-                <span>
-                  {globalStateData.displayName
-                    ? globalStateData.displayName[0]
-                    : `?`}
-                </span>
-              </h2>
-            )}
-
-            {isDropdownOpen && <Dropdown name={globalStateData?.displayName} />}
+              {searchText && <SearchDropdown search={debounceValue} />}
+            </div>
+            <Link
+              to="/ai"
+              className="block md:inline-block mb-2 md:mb-0 md:mr-4"
+            >
+              <button className="bg-primary-golden text-black p-2 border-2 border-white rounded-md w-full md:w-auto">
+                AI Search
+              </button>
+            </Link>
+            <div className="relative cursor-pointer">
+              {globalStateData.photoURL ? (
+                <img
+                  src={globalStateData.photoURL}
+                  alt="User Avatar"
+                  onClick={() => dispatch(toggleDropdown())}
+                  className="rounded-full border-2 border-white w-12 h-12 md:w-16 md:h-16"
+                />
+              ) : (
+                <h2
+                  className="border  rounded-full bg-black w-12 h-12 md:w-16 md:h-16 font-bold text-2xl md:text-4xl flex justify-center items-center text-white"
+                  onClick={() => dispatch(toggleDropdown())}
+                >
+                  <span>
+                    {globalStateData.displayName
+                      ? globalStateData.displayName[0]
+                      : `?`}
+                  </span>
+                </h2>
+              )}
+              {isDropdownOpen && (
+                <Dropdown name={globalStateData?.displayName} />
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
