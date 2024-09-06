@@ -89,23 +89,22 @@ const AISearchBar = () => {
   return (
     <div className="pt-20 mt-14 md:mt-0 md:pt-12 flex flex-col items-center text-center space-y-4">
       <h2 className="text-white text-xl md:text-5xl font-extrabold mb-4">
-        Discover <span className="text-purple-500">Your Next</span> Favorite{" "}
-        <span className="text-blue-500">Movie</span> with{" "}
-        <span className="text-red-500">AI Insights</span>
+        Discover Your Next Favorite Movie with
+        <span className="text-golden"> AI Insights</span>
       </h2>
 
       <form
-        className="w-[250px] md:w-2/3 lg:w-1/2 bg-black bg-opacity-50 rounded-xl p-4 shadow-lg flex flex-col md:flex-row items-center md:space-x-4"
+        className="w-full mx-auto bg-opacity-60 rounded-xl p-4 shadow-lg flex items-center justify-center md:space-x-4"
         onSubmit={(e) => e.preventDefault()}
       >
         <input
           ref={searchText}
-          className="w-full p-2 md:p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300"
+          className="w-2/3 md:w-2/3 p-2 md:p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden transition duration-300"
           type="text"
-          placeholder="search ai here"
+          placeholder="Get AI recommended movie"
         />
         <button
-          className="w-full md:w-auto mt-4 md:mt-0 py-2 px-4 bg-red-600 rounded-lg text-white font-semibold focus:outline-none hover:bg-red-700 transition duration-300"
+          className="w-auto inline-block md:mt-0 py-2 px-4 rounded-md  font-semibold focus:outline-none transition duration-300"
           onClick={handleGptSearchClick}
           disabled={loading}
         >

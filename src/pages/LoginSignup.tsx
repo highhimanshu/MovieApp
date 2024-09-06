@@ -9,6 +9,7 @@ import { auth, signInWithGooglePopup } from "../utils/firebaseConfig";
 import { useDispatch } from "react-redux";
 import { addUser } from "../features/userSlice";
 import G_ICON from "../assets/g_icon.png";
+import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 
 const LoginSignup = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -100,14 +101,14 @@ const LoginSignup = () => {
   };
 
   return (
-    <div className="bg-[url('../assets/bg-image.jpg')]">
-      <div className="text-center w-1/4 mx-auto backdrop-blur bg-black/70 p-4 my-4 rounded text-white">
-        <h2 className="text-3xl font-semibold">
+    <div className="h-screen flex items-center text-white">
+      <div className="text-center w-5/6 sm:w-4/6 md:w-2/6 mx-auto backdrop-blur rounded-md bg-black/70 p-8 my-4 ">
+        <h2 className="text-3xl font-semibold pb-7 ">
           {isLogin ? "Sign In" : "Sign Up"}
         </h2>
         {!isLogin && (
-          <div className="flex justify-center flex-col item-center ">
-            <label htmlFor="name" className="text-left">
+          <div className="relative flex justify-center flex-col gap-8 item-center ">
+            <label htmlFor="name" className="text-left sr-only">
               Enter Full Name
             </label>
             <input
@@ -115,16 +116,15 @@ const LoginSignup = () => {
               id="name"
               ref={nameInput}
               placeholder="Email full name"
-              className="border-2 rounded p-2"
+              className="border-2 rounded p-2 mb-2 pl-10"
             />
-            {/* {emailError && (
-            <span className="text-red-500 font-bold">{emailError}</span>
-          )} */}
+            <span className="absolute top-2 left-2 text-xl">
+              <FaUser />
+            </span>
           </div>
         )}
-
-        <div className="flex justify-center flex-col item-center ">
-          <label htmlFor="email" className="text-left">
+        <div className="relative flex justify-center flex-col gap-8  item-center ">
+          <label htmlFor="email" className="text-left sr-only ">
             Enter Email
           </label>
           <input
@@ -132,23 +132,29 @@ const LoginSignup = () => {
             id="email"
             ref={emailInput}
             placeholder="Email or mobile number"
-            className="border-2 rounded p-2"
+            className="border-2 rounded p-2 mb-2 pl-10"
           />
+          <span className="absolute top-2 left-2 text-xl">
+            <FaEnvelope />
+          </span>
           {authError?.email && (
-            <span className="text-red-500 font-bold">{authError?.email}</span>
+            <p className="text-red-500 font-bold">{authError.email}</p>
           )}
         </div>
-        <div className="flex justify-center flex-col item-center">
-          <label htmlFor="password" className="text-left">
+        <div className="relative flex justify-center flex-col item-center ">
+          <label htmlFor="password" className="text-left sr-only">
             Enter Password
           </label>
           <input
             type="password"
-            id="password"
+            id="email"
             ref={passwordInput}
-            placeholder="Enter Password"
-            className=" border-2 rounded p-2 "
+            placeholder="Enter password"
+            className="border-2 rounded p-2 mb-1 pl-10"
           />
+          <span className="absolute top-2 left-2 text-xl">
+            <FaLock />
+          </span>
           {authError?.password && (
             <span className="text-red-500 font-bold">
               {authError?.password}
@@ -157,14 +163,14 @@ const LoginSignup = () => {
         </div>
         {isLogin ? (
           <button
-            className="bg-red-600 w-full text-xl border rounded my-2 py-2"
+            className="rounded-md w-full text-xl border my-2 py-2"
             onClick={handleLogin}
           >
             Sign In
           </button>
         ) : (
           <button
-            className="bg-red-600 w-full text-xl border rounded my-2 py-2"
+            className="rounded-md w-full text-xl border my-2 py-2"
             onClick={handleLogin}
           >
             Sign Up
@@ -204,9 +210,10 @@ const LoginSignup = () => {
             </span>
           </div>
         )}
-        <span>-----------------</span>
-        <p>xyz@gmail.com</p>
-        <p>Testing_193</p>
+        <div className="border flex flex-col my-4">
+          <span className="font-bold text-md">Dummy user and pass</span>
+          <code>xyz@gmail.com</code> <blockquote>Testing_193 </blockquote>
+        </div>
       </div>
     </div>
   );

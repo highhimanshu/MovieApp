@@ -53,8 +53,8 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="fixed w-full py-2 px-4 bg-gradient-to-b from-black to-transparent z-10">
-      <div className="container mx-auto flex flex-wrap items-center justify-between">
+    <div className="fixed w-full top-0 px-4 py-4 bg-gradient-to-b from-black to-transparent z-10">
+      <div className="mx-auto flex flex-wrap items-center justify-between">
         <Link to="/" className="flex items-center">
           <img src={LOGO} className="w-32 md:w-48" alt="MovieFlex Logo" />
         </Link>
@@ -74,14 +74,15 @@ const Navbar = () => {
           >
             <Link
               to="/favorite"
-              className="block md:inline-block text-white mb-2 md:mb-0 md:mr-4"
+              className="block font-bold md:inline-block text-white mb-2 md:mb-0 md:mr-4"
             >
               Favorite
             </Link>
             <div className="relative mb-2 md:mb-0 md:mr-4">
               <input
                 type="search"
-                className="p-2 rounded-md bg-black border-2 border-gray-200 w-full md:w-auto"
+                className="p-2 rounded-md bg-gray-800   w-full md:w-auto focus:outline-none focus:ring-2 focus:ring-golden"
+                placeholder="Search here"
                 onChange={(e) => setSeachText(e.target.value)}
               />
               {searchText && <SearchDropdown search={debounceValue} />}
@@ -90,7 +91,7 @@ const Navbar = () => {
               to="/ai"
               className="block md:inline-block mb-2 md:mb-0 md:mr-4"
             >
-              <button className="bg-primary-golden text-black p-2 border-2 border-white rounded-md w-full md:w-auto">
+              <button className="bg-golden p-2 font-bold rounded-md w-full md:w-auto">
                 AI Search
               </button>
             </Link>
@@ -100,7 +101,7 @@ const Navbar = () => {
                   src={globalStateData.photoURL}
                   alt="User Avatar"
                   onClick={() => dispatch(toggleDropdown())}
-                  className="rounded-full border-2 border-white w-12 h-12 md:w-16 md:h-16"
+                  className="rounded-full border-2 border-white size-12 md:size-14"
                 />
               ) : (
                 <h2

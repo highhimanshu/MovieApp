@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import useMovieDetails from "../hooks/useMovieDetails";
 import { BASE_IMAGE_CDN } from "../utils/constants";
 import { GenreType, SpokenLanguageType } from "../types/MovieDetailType";
-
 import MovieDetailSkeleton from "../components/skeleton/MovieDetailSkeleton";
 import NO_IMG from "../assets/no_image_available.jpg";
 import useVideoApi from "../hooks/useVideoApi";
@@ -48,7 +47,7 @@ const MovieDetail = () => {
     <div className="pt-16 md:pt-24 lg:pt-32 w-full min-h-screen bg-gray-900">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row justify-center text-white gap-8">
-          <div className="lg:1/3 ">
+          <div className="lg:1/3">
             <img
               src={backdrop_path ? BASE_IMAGE_CDN + backdrop_path : NO_IMG}
               className="rounded-lg w-full h-auto object-cover"

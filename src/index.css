@@ -2,20 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.main_container {
+  @apply max-w-[1200px] mx-auto;
+}
+
 body {
-  background-color: black;
+  background-color: #111827;
   color: white;
 }
 
 input {
-  background-color: black;
+  background-color: #181f2d;
+  border: none;
 }
 
 button {
   border: 2px solid white;
-  border-radius: 5px;
-
+  background-color: #a28023;
   &:hover {
-    background-color: red;
+    background-color: #111827;
   }
 }

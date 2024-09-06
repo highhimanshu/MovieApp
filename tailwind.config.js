@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        "primary-golden": "#DBC078",
-        "primary-background": "#343131",
+        golden: "#a28023",
+        pblack: "#111827",
       },
       backgroundImage: {
         loginbg: "url('../assets/bg-image.jpg')",

@@ -3,6 +3,7 @@ import { API_OPTIONS, BASE_MOVIE_API } from "../utils/constants";
 import MovieCard from "../components/MovieCard";
 import { Link, useParams, useLocation } from "react-router-dom";
 import CardSkeleton from "../components/skeleton/CardSkeleton";
+import toast, { Toaster } from "react-hot-toast";
 
 const CategoryWiseMovieList = () => {
   const [allMovies, setAllMovies] = useState({
@@ -18,6 +19,8 @@ const CategoryWiseMovieList = () => {
 
   const getAllMoviePerCateogry = async () => {
     setIsLoading(true);
+    toast("Loading");
+
     try {
       const response = await fetch(
         BASE_MOVIE_API + `${param.category_name}?language=en-US&page=${page}`,
@@ -25,11 +28,13 @@ const CategoryWiseMovieList = () => {
       );
       const data = await response.json();
       setAllMovies({ movies: data?.results, pages: data?.total_pages });
-    } catch (error) {
-      console.log("errir", error);
+    } catch (error: any) {
+      console.log("error", error);
       setIsLoading(false);
+      toast.error(error);
     } finally {
       setIsLoading(false);
+      toast.success("Data Loaded");
     }
   };
 
@@ -51,7 +56,7 @@ const CategoryWiseMovieList = () => {
   return (
     <div className="pt-32 w-[1200px] mx-auto bg-black h-max text-white">
       <h2 className="font-semibold text-3xl text-center my-6">{title}</h2>
-
+      <Toaster position="top-center" />
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4  gap-10 ">
         {isLoading
           ? Array(12)
