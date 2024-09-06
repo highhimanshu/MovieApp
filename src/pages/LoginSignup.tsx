@@ -10,6 +10,9 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../features/userSlice";
 import G_ICON from "../assets/g_icon.png";
 import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
+import useApiToast from "../hooks/useApiToast";
+import { log } from "console";
+import { Toaster } from "react-hot-toast";
 
 const LoginSignup = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -22,18 +25,22 @@ const LoginSignup = () => {
     firebaseErr: null,
   });
   const dispatch = useDispatch();
+  const { showToast, toastId } = useApiToast();
 
   //google sign in
   const signInWithGoogle = async () => {
+    showToast("Signing in with Google...", "loading");
     try {
       const response = await signInWithGooglePopup();
       console.log(response);
+      showToast("Successfully signed in with Google!", "success");
     } catch (err: any) {
       console.log(err.message);
+      showToast("Failed to sign in with Google", "error");
     }
   };
 
-  const handleLogin = (e: any) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError({ email: null, password: null, firebaseErr: null });
     const error: any = validation(
@@ -49,59 +56,56 @@ const LoginSignup = () => {
     if (Object.keys(error).length > 0) {
       console.log("error hai");
       return;
-    } else {
+    }
+
+    showToast(isLogin ? "Signing in..." : "Creating account...", "loading");
+
+    try {
       if (isLogin) {
         //login
         if (emailInput.current && passwordInput.current) {
-          signInWithEmailAndPassword(
+          const userCredential = await signInWithEmailAndPassword(
             auth,
-            emailInput?.current?.value,
-            passwordInput?.current?.value
-          )
-            .then((userCredential: any) => {
-              const { uid, email, displayName } = userCredential.user;
-              console.log("login... ", uid);
-              dispatch(
-                addUser({ uid: uid, email: email, displayName: displayName })
-              );
-            })
-            .catch((error) => {
-              console.log(error);
-              setAuthError({ firebaseErr: error.code });
-            });
+            emailInput.current.value,
+            passwordInput.current.value
+          );
+          const { uid, email, displayName } = userCredential.user;
+          console.log("login... ", uid);
+          dispatch(
+            addUser({ uid: uid, email: email, displayName: displayName })
+          );
+          showToast("Successfully signed in!", "success");
         }
       } else {
         //sign up
-        if (emailInput.current && passwordInput.current) {
-          createUserWithEmailAndPassword(
+        if (emailInput.current && passwordInput.current && nameInput.current) {
+          const userCredential = await createUserWithEmailAndPassword(
             auth,
-            emailInput?.current?.value,
-            passwordInput?.current?.value
-          )
-            .then((userCredential) => {
-              const user = userCredential.user;
-              if (user) {
-                updateProfile(user, {
-                  displayName: nameInput?.current?.value,
-                });
-              }
-            })
-            .then(() => {
-              const { uid, email, displayName }: any = auth.currentUser;
-              dispatch(
-                addUser({ uid: uid, email: email, displayName: displayName })
-              );
-            })
-            .catch((error) => {
-              setAuthError({ firebaseErr: error.code });
+            emailInput.current.value,
+            passwordInput.current.value
+          );
+          const user = userCredential.user;
+          if (user) {
+            await updateProfile(user, {
+              displayName: nameInput.current.value,
             });
+          }
+          const { uid, email, displayName } = auth.currentUser || {};
+          dispatch(
+            addUser({ uid: uid, email: email, displayName: displayName })
+          );
+          showToast("Account created successfully!", "success");
         }
       }
+    } catch (error: any) {
+      setAuthError({ firebaseErr: error.code });
+      showToast(`Authentication failed: ${error.message}`, "error");
     }
   };
 
   return (
     <div className="h-screen flex items-center text-white">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="text-center w-5/6 sm:w-4/6 md:w-2/6 mx-auto backdrop-blur rounded-md bg-black/70 p-8 my-4 ">
         <h2 className="text-3xl font-semibold pb-7 ">
           {isLogin ? "Sign In" : "Sign Up"}

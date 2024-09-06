@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import VideoSlider from "../components/VideoSlider";
 import SecondaryContainer from "../components/SecondaryContainer";
 import AISearch from "../components/AISearch";
-import { Toaster } from "react-hot-toast";
 
 const Homepage = () => {
   useApi(UPCOMING_MOVIE_API);
@@ -26,7 +25,6 @@ const Homepage = () => {
 
   return (
     <>
-      <Toaster position="top-center" />
       {showGptSearch ? (
         <AISearch />
       ) : (

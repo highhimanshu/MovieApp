@@ -1,4 +1,4 @@
-import { MutableRefObject, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import openai from "../utils/openai";
 import { API_OPTIONS } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
 import { MovieDetailType } from "../types/MovieDetailType";
 import Spinner from "./skeleton/Spinner";
+import toast, { Toaster } from "react-hot-toast";
 
 const AISearchBar = () => {
   const [loading, setLoading] = useState(false);
@@ -41,22 +42,41 @@ const AISearchBar = () => {
     // });
 
     //google gemeni
+    toast.promise(openai.generateContent(prompt), {
+      loading: "Generating AI recommendations...",
+      success: "AI recommendations generated!",
+      error: "Failed to generate recommendations",
+    });
     try {
       const gptResult = await openai.generateContent(prompt);
       const response = gptResult.response;
       const text = response.text();
       if (!text) {
-        setErrorMessage("No response from AI. Please try again later.");
+        toast.error("No response from AI. Please try again later.");
         setLoading(false);
         return;
       }
       const gptMovies = text.split(","); // converts to array
       const gptMoviesSuggestionList = gptMovies.map((ele) => ele.trim());
-      const promiseArray = gptMoviesSuggestionList.map((movie) =>
-        searchMovieTMDB(movie)
+
+      toast.promise(
+        Promise.all(
+          gptMoviesSuggestionList.map((movie) => searchMovieTMDB(movie))
+        ),
+        {
+          loading: "Fetching movie details...",
+          success: "Movie details fetched successfully!",
+          error: "Failed to fetch movie details",
+        }
       );
-      const tmdbResult = await Promise.all(promiseArray);
-      console.log("ai result", tmdbResult);
+
+      // const promiseArray = gptMoviesSuggestionList.map((movie) =>
+      //   searchMovieTMDB(movie)
+      // );
+      const tmdbResult = await Promise.all(
+        gptMoviesSuggestionList.map((movie) => searchMovieTMDB(movie))
+      );
+
       const flattenedArrayMovieList = tmdbResult.flat();
       console.log("flattened result", flattenedArrayMovieList);
       dispatch(addGptMovieResult(tmdbResult.flat()));
@@ -65,6 +85,7 @@ const AISearchBar = () => {
         "An error occurred. Please try again later or check your network connection."
       );
       console.error("Error during GPT search:", error);
+      toast.error("An error occurred during the search.");
     } finally {
       setLoading(false);
     }
@@ -78,16 +99,19 @@ const AISearchBar = () => {
           "&include_adult=false&language=en-US&page=1",
         API_OPTIONS
       );
+
       const json = await data.json();
       return json.results;
     } catch (error) {
       console.error("Error fetching movie from TMDB:", error);
+      toast.error(`Failed to fetch details for ${movie}`);
       return [];
     }
   };
 
   return (
     <div className="pt-20 mt-14 md:mt-0 md:pt-12 flex flex-col items-center text-center space-y-4">
+      <Toaster position="top-center" reverseOrder={false} />
       <h2 className="text-white text-xl md:text-5xl font-extrabold mb-4">
         Discover Your Next Favorite Movie with
         <span className="text-golden"> AI Insights</span>

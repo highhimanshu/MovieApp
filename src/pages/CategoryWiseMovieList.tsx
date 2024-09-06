@@ -26,6 +26,7 @@ const CategoryWiseMovieList = () => {
         BASE_MOVIE_API + `${param.category_name}?language=en-US&page=${page}`,
         API_OPTIONS
       );
+
       const data = await response.json();
       setAllMovies({ movies: data?.results, pages: data?.total_pages });
     } catch (error: any) {
