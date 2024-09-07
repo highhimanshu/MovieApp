@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import openai from "../utils/openai";
 import { API_OPTIONS } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";

@@ -3,7 +3,6 @@ import MovieCard from "./MovieCard";
 import Carousel from "./Carousel";
 import CardSkeleton from "./skeleton/CardSkeleton";
 import { MovieListType } from "../types/MovieDetailType";
-import { Toaster } from "react-hot-toast";
 
 const MovieList = ({
   urlQuery,

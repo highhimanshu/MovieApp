@@ -11,7 +11,7 @@ import { addUser } from "../features/userSlice";
 import G_ICON from "../assets/g_icon.png";
 import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 import useApiToast from "../hooks/useApiToast";
-import { log } from "console";
+
 import { Toaster } from "react-hot-toast";
 
 const LoginSignup = () => {
@@ -25,7 +25,7 @@ const LoginSignup = () => {
     firebaseErr: null,
   });
   const dispatch = useDispatch();
-  const { showToast, toastId } = useApiToast();
+  const { showToast } = useApiToast();
 
   //google sign in
   const signInWithGoogle = async () => {
