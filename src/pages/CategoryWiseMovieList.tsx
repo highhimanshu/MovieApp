@@ -57,10 +57,12 @@ const CategoryWiseMovieList = () => {
   }, [page]);
 
   return (
-    <div className="pt-32 w-[1200px] mx-auto h-max text-white">
-      <h2 className="font-semibold text-3xl text-center my-6">{title}</h2>
+    <div className="pt-20 md:pt-32 px-4 md:px-8 max-w-7xl mx-auto text-white">
+      <h2 className="text-2xl md:text-3xl font-semibold text-center my-6">
+        {title}
+      </h2>
       <Toaster position="top-center" />
-      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4  gap-10 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
         {isLoading
           ? Array(12)
               .fill(0)
@@ -70,7 +72,11 @@ const CategoryWiseMovieList = () => {
                 </div>
               ))
           : allMovies?.movies.map((movie: any) => (
-              <Link to={`/${movie.id}`}>
+              <Link
+                to={`/${movie.id}`}
+                key={movie.id}
+                className="flex justify-center"
+              >
                 <MovieCard
                   id={movie.id}
                   posterPath={movie.backdrop_path}
@@ -81,21 +87,26 @@ const CategoryWiseMovieList = () => {
       </div>
 
       <ul className="flex flex-wrap list-none justify-center gap-5 my-10 font-bold">
-        {page > 1 && <li onClick={handlePrevPage}>Prev</li>}
+        {page > 1 && (
+          <li onClick={handlePrevPage} className="cursor-pointer">
+            Prev
+          </li>
+        )}
         {[...Array(Math.ceil(allMovies?.pages))].map((_, i) => (
           <li
+            key={i}
             onClick={() => handleNumberClick(i + 1)}
-            className={
-              page === i + 1
-                ? "font-bold text-red-600 cursor-pointer"
-                : "cursor-pointer"
-            }
+            className={`cursor-pointer ${
+              page === i + 1 ? "font-bold text-red-600" : ""
+            }`}
           >
             {i + 1}
           </li>
         ))}
         {page < allMovies?.movies.length && (
-          <li onClick={handleNextPage}>Next</li>
+          <li onClick={handleNextPage} className="cursor-pointer">
+            Next
+          </li>
         )}
       </ul>
     </div>
