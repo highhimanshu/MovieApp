@@ -1,5 +1,4 @@
 import UpdateUserData from "../components/UpdateUserData";
-import FavoriteMoives from "../components/FavoriteMovies";
 import { useState } from "react";
 
 const Dashboard = () => {
