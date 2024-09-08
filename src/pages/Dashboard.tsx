@@ -19,12 +19,7 @@ const Dashboard = () => {
             >
               Update
             </li>
-            <li
-              className="hover:underline cursor-pointer"
-              onClick={(e: any) => setShowComponent(e.target.innerText)}
-            >
-              Favorite
-            </li>
+
             <li
               className="hover:underline cursor-pointer"
               onClick={(e: any) => setShowComponent(e.target.innerText)}
@@ -38,7 +33,6 @@ const Dashboard = () => {
 
         <div className="col-span-8">
           {showComponent === "Update" && <UpdateUserData />}
-          {showComponent === "Favorite" && <FavoriteMoives />}
         </div>
       </div>
     </div>

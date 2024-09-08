@@ -20,26 +20,28 @@ const MovieList = ({
           </h2>
         </Link>
       </div>
-      <Carousel itemsToShow={10} itemsToScroll={1}>
-        {isLoading
-          ? [...Array(10)].map((_, index) => (
-              <div key={`skeleton-${index}`} className="w-[350px]">
-                <CardSkeleton />
-              </div>
-            ))
-          : moviesList?.map((movie: any) => (
-              <div key={movie.id} className="w-full">
-                <Link to={`/${movie.id}`}>
-                  <MovieCard
-                    id={movie.id}
-                    posterPath={movie.backdrop_path}
-                    movieTitle={movie.title}
-                    originalLanguage={movie.original_language}
-                  />
-                </Link>
-              </div>
-            ))}
-      </Carousel>
+      <div className="overflow-hidden">
+        <Carousel>
+          {isLoading
+            ? [...Array(10)].map((_, index) => (
+                <div key={`skeleton-${index}`} className="w-full">
+                  <CardSkeleton />
+                </div>
+              ))
+            : moviesList?.map((movie: any) => (
+                <div key={movie.id} className="w-[350px]">
+                  <Link to={`/${movie.id}`}>
+                    <MovieCard
+                      id={movie.id}
+                      posterPath={movie.backdrop_path}
+                      movieTitle={movie.title}
+                      originalLanguage={movie.original_language}
+                    />
+                  </Link>
+                </div>
+              ))}
+        </Carousel>
+      </div>
     </div>
   );
 };

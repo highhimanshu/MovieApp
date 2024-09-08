@@ -36,7 +36,7 @@ const MovieCard = ({
       className="group relative cursor-pointer my-7 hover:scale-125 transition-all duration-500 hover:rounded-md hover:z-50"
     >
       <div className="flex items-end justify-between overlay absolute bottom-0 left-0 right-0 w-full h-full bg-gradient-to-t from-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:z-50">
-        <span className="text-primary-golden text-xl p-2 font-semibold">
+        <span className="text-primary-golden text-lg p-2 font-semibold">
           {movieTitle} ({originalLanguage})
         </span>
         <span className="m-4  border rounded" onClick={handleToggleFavorite}>

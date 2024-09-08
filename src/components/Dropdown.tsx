@@ -16,15 +16,17 @@ const Dropdown = ({ name }: DropdownType) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         dispatch(closeDropdown());
-
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dispatch]);
 
@@ -39,7 +41,10 @@ const Dropdown = ({ name }: DropdownType) => {
   };
 
   return (
-    <div ref= {dropdownRef} className="absolute border-2 p-4 top-15 right-0 text-lg bg-black rounded-md ">
+    <div
+      ref={dropdownRef}
+      className="absolute border-2 p-4 top-15 right-0 text-lg bg-black rounded-md "
+    >
       <ul className="leading-loose w-max cursor-pointer">
         <Link to="/dashboard">
           <li className="hover:underline">{name ? name : "Update Name"}</li>

@@ -29,20 +29,20 @@ const SearchDropdown = ({ search }: { search: string }) => {
   return (
     <div
       ref={dropdownRef}
-      className="absolute z-10 bg-black w-full border border-gray-800 top-14"
+      className="absolute z-10 bg-gray-700 rounded-md w-full border border-gray-800 top-11"
     >
       {isLoading ? (
         <div className="h-[400px]">
           <ListSkeleton />
         </div>
       ) : (
-        <div className="h-[400px]">
+        <div className="h-[550px] overflow-auto">
           <ul className="leading-7">
             {aimovieList?.map((ele: any, index: number) => (
               <Link to={`/${ele.id}`}>
                 <li
                   key={ele.id}
-                  className="p-2 space-x-4  rounded my-2  hover:bg-red-500 shadow-sm "
+                  className="p-2 space-x-4 rounded my-1 mx-1 hover:bg-golden shadow-sm  "
                 >
                   {ele.original_title} ( {ele.original_language})
                 </li>
@@ -51,6 +51,9 @@ const SearchDropdown = ({ search }: { search: string }) => {
                 )}
               </Link>
             ))}
+            <span className="flex justify-center items-center text-sm font-semibold bg-golden py-2 cursor-pointer hover:underline hover:underline-offset-1">
+              See More
+            </span>
           </ul>
         </div>
       )}
